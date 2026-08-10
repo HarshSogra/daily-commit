@@ -15,14 +15,14 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.x"
 
-      - name: Generate daily entry
+      - name: Generate daily entry and refresh README
         run: python scripts/update.py
 
       - name: Commit and push
@@ -30,7 +30,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add data/activity.json
+          git add data/activity.json README.md
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
